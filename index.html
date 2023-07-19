@@ -105,7 +105,7 @@ startButton.addEventListener("click", function() {
     bottomPipeImg.src = "bottompipe.png";
 
     document.addEventListener("keydown", moveBird);
-    document.addEventListener("touchstart", moveBird);
+    document.addEventListener("touchstart", moveBirdy);
 };
 
 function startGame() {
@@ -196,15 +196,19 @@ function placePipes() {
 
 function moveBird(e) {
     if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
-        if(document.addEventListener("touchstart")) {
-            velocityY = -6;  
-        }
         velocityY = -6;
 
         if (gameOver) {
             restartGame();
         }
     }
+}
+        function moveBirdy(e) {
+        velocityY = -6;
+
+        if (gameOver) {
+            restartGame();
+        }
 }
 
 function detectCollision(a, b) {
