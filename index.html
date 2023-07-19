@@ -14,13 +14,35 @@
 #board {
   background-image: url("flappybirdbg.png");
 }
+#startButton {
+  font-family: 'courier new';
+  font-weight: bold;
+  color: #FFFFFF !important;
+  font-size: 14px;
+  text-shadow: 1px 1px 0px #7CACDE;
+  box-shadow: 1px 1px 1px #BEE2F9;
+  padding: 10px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px groove #FFFFFF;
+  background: #63B8EE;
+  background: linear-gradient(to top, #63B8EE, #468CCF);
+}
+#startButton:hover {
+  color: #FFFFFF !important;
+  background: #468CCF;
+  background: linear-gradient(to top, #468CCF, #63B8EE);
+}
 
     </style>
 </head>
 <body>
     <canvas id="board"></canvas>
+<button id="startButton" style="display: none; position: absolute; top: 50%; left: 50%;  transform: translate(-50%, -50%);">Start Game</button>
+<button id="restartButton" style="display: none;">Restart Game</button>
+<p id="scoreDisplay" style="display: none;"></p>
     <script type="text/javascript">
-        // Board
+// Board
 let board;
 let boardWidth = 360;
 let boardHeight = 640;
@@ -28,7 +50,7 @@ let context;
 
 // Bird
 let birdWidth = 34;
-let birdHeight = 24;
+let birdHeight = 34;
 let birdX = boardWidth / 8;
 let birdY = boardHeight / 2;
 let birdImg;
@@ -59,6 +81,14 @@ let gameOver = false;
 let score = 0;
 
 window.onload = function () {
+
+let startButton = document.getElementById("startButton");
+startButton.style.display = "inline";
+startButton.addEventListener("click", function() {
+    startButton.style.display = "none";
+    startGame();
+});
+
     board = document.getElementById("board");
     board.height = boardHeight;
     board.width = boardWidth;
@@ -66,9 +96,7 @@ window.onload = function () {
 
     birdImg = new Image();
     birdImg.src = "flappybird.png";
-    birdImg.onload = function () {
-        startGame();
-    };
+    birdImg.onload = function () {};
 
     topPipeImg = new Image();
     topPipeImg.src = "toppipe.png";
@@ -124,6 +152,15 @@ function updateGameArea() {
 
     if (gameOver) {
         context.fillText("GAME OVER", 5, 90);
+        
+let restartButton = document.getElementById("restartButton");
+restartButton.addEventListener("click", function() {
+    restartButton.style.display = "none";
+    document.getElementById("scoreDisplay").style.display = "none";
+    restartGame();
+});
+
+        document.getElementById("scoreDisplay").innerText = "Final Score: " + score;
     }
 }
 
@@ -181,6 +218,7 @@ function restartGame() {
     score = 0;
     gameOver = false;
 }
+
 
     </script>
 </body>
